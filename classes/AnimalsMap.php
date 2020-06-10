@@ -9,12 +9,44 @@ class AnimalsMap extends BaseMap {
     public function findById($id=null){
         if ($id) {
             $res = $this->db->query("SELECT animals_id, firstname, date_birth, gender_id,habiat_id,racion_animals_id,id_vet,id_smotr". "FROM animals WHERE animals_id = $id");
-            $user = $res->fetchObject("Animals");
-            if ($user) {
-                return $user;
+            $p = $res->fetchObject("Animals");
+            if ($p) {
+                return $p;
             }
         }
         return new Personal();
+    }
+    public function save(Animals $animals) {
+        if ($animals->validate()) {
+            if ($animals->animals_id == 0) {
+                return $this->insert($animals);
+            } else {
+                return $this->update($animals);
+            }
+        }
+        return false;
+    }
+    private function insert(Animals $animals)
+    {
+        $firstname = $this->db->quote($animals->firstname);
+        $date_birth = $this->db->quote($animals->date_birth);
+        $id_vet=($animals->id_vet)?$animals->id_vet:'NULL';
+        $id_smotr=($animals->id_smotr)?$animals->id_smotr:'NULL';
+        if ($this->db->exec("INSERT INTO animals(firstname,date_birth,gender_id,habiat_id,racion_animals_id, id_vet,id_smotr)"
+                . " VALUES($firstname,$date_birth,$animals->gender_id,$animals->habiat_id,$animals->racion_animals_id,$id_vet,$id_smotr)") == 1) {
+            $animals->animals_id = $this->db->lastInsertId();
+            return true;
+        }
+        return false;
+    }
+
+    private function update(Animals $animals){
+        $firstname = $this->db->quote($animals->firstname);
+        $date_birth = $this->db->quote($animals->date_birth);
+        if ( $this->db->exec("UPDATE user SET firstname = $firstname, date_birth = $date_birth,". "gender_id = $animals->gender_id,habiat_id = $animals->habiat_id, racion_animals_id = $animals->racion_animals_id,id_vet = $animals->id_vet, racion_animals_id = $animals->racion_animals_id,id_smotr = $animals->id_smotr ". "WHERE animals_id = ".$animals->animals_id) == 1) {
+            return true;
+        }
+        return false;
     }
 
     public function arrGenders(){
@@ -46,45 +78,26 @@ class AnimalsMap extends BaseMap {
         return $res->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function save(Animals $animals)
-    {
-        if ($animals->validate()) {
-            if ($animals->animals_id == 0) {
-                return $this->insert($animals);
-            } else {
-                return $this->update($animals);
-            }
-        }
-        return false;
-    }
-    private function insert(Animals $animals){
-        $firstname = $this->db->quote($animals->firstname);
-        $date_birth = $this->db->quote($animals->date_birth);
-        if ($this->db->exec("INSERT INTO animals(firstname,gender_id,date_birth,habiat_id,racion_animals_id,id_vet,id_smotr)"
-                . " VALUES($firstname,$animals->gender_id,$date_birth,$animals->habiat_id,$animals->racion_animals_id,$animals->id_vet,$animals->id_smotr)") == 1) {
-            $animals->animals_id = $this->db->lastInsertId();
-            return true;
-        }
-        return false;
-    }
-    private function update(Animals $animals){
-        $firstname = $this->db->quote($animals->firstname);
-        $date_birth = $this->db->quote($animals->date_birth);
-        if ( $this->db->exec("UPDATE personal SET firstname = $firstname,". " gender_id = $animals->gender_id, date_birth = $date_birth, habiat_id=$animals->habiat_id,racion_animals_id = $animals->racion_animals_id, id_vet=$animals->id_vet, id_smotr=$animals->id_smotr ". "WHERE animals_id = ".$animals->animals_id) == 1) {
-            return true;
-        }
-        return false;
-    }
+
 
     public function findAll($ofset=0,$limit=30){
-        $res = $this->db->query("SELECT animals.animals_id,animals.firstname,animals.date_birth, gender.name AS gender,racion_animals.name AS racion_animals, personal.lastname AS vet,
-        CONCAT(personal.lastname,' ', personal.firstname, ' ', personal.patronymic) AS smotr,obitanya.name AS habiat"
-            . " FROM animals INNER JOIN gender ON animals.gender_id=gender.gender_id INNER JOIN racion_animals ON animals.racion_animals_id=racion_animals.racion_animals_id INNER JOIN obitanya ON animals.habiat_id=obitanya.habiat_id INNER JOIN personal ON personal.user_id=id_vet  LIMIT $ofset,$limit");
+        $res = $this->db->query("SELECT animals.animals_id,animals.firstname,animals.date_birth, gender.name AS gender,racion_animals.name AS racion_animals, CONCAT(personal.lastname,' ', personal.firstname, ' ', personal.patronymic) AS vet,
+        CONCAT(ps.lastname,' ', ps.firstname, ' ', ps.patronymic) AS smotr,obitanya.name AS habiat"
+            . " FROM animals INNER JOIN gender ON animals.gender_id=gender.gender_id INNER JOIN racion_animals ON animals.racion_animals_id=racion_animals.racion_animals_id INNER JOIN obitanya ON animals.habiat_id=obitanya.habiat_id INNER JOIN personal ON personal.user_id=id_vet INNER JOIN personal ps ON ps.user_id=animals.id_smotr LIMIT $ofset,$limit");
         return $res->fetchAll(PDO::FETCH_OBJ);
     }
     public function count(){
         $res = $this->db->query("SELECT COUNT(*) AS cnt FROM animals");
         return $res->fetch(PDO::FETCH_OBJ)->cnt;
+    }
+
+    public function findViewById($id=null){
+        if ($id) {
+            $res = $this->db->query("SELECT animals.animals_id,animals.firstname,animals.date_birth,gender.name AS gender,obitanya.name AS habiat,CONCAT(personal.lastname,' ', personal.firstname, ' ', personal.patronymic) AS vet,CONCAT(ps.lastname,' ', ps.firstname, ' ', ps.patronymic) AS smotr"
+                . " FROM animals INNER JOIN gender ON animals.gender_id=gender.gender_id INNER JOIN obitanya ON animals.habiat_id=obitanya.habiat_id INNER JOIN personal ON personal.user_id=id_vet INNER JOIN personal ps ON ps.user_id=animals.id_smotr WHERE animals_id = $id");
+            return $res->fetch(PDO::FETCH_OBJ);
+        }
+        return false;
     }
 
 

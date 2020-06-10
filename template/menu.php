@@ -29,7 +29,7 @@
             createLink("list-classroom.php", "fa-users", "??");
             ?>
             <li class="header">Животные</li>
-            <?php createLink("list-teacher-schedule.php", "fa-users", "?? и ??"); ?>
+            <?php createLink("list-animals.php", "fa-users", "Список животных"); ?>
         </ul>
     </section>
 </aside>

@@ -30,4 +30,16 @@ $animals = $animalsMap->findById($id);
             <?= Helper::printSelectOptions($animals->racion_animals_id, $animalsMap->arrRacion());?>
         </select>
     </div>
+    <div class="form-group">
+        <label>Ветеринар</label>
+        <select class="form-control" name="id_vet">
+            <?= Helper::printSelectOptions($animals->id_vet, $animalsMap->arrVet());?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Смотрящий</label>
+        <select class="form-control" name="id_smotr">
+            <?= Helper::printSelectOptions($animals->id_smotr, $animalsMap->arrSmotr());?>
+        </select>
+    </div>
     <input type="hidden" name="animals_id" value="<?=$id;?>"/><?php
