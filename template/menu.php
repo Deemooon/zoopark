@@ -18,18 +18,17 @@
             <?php createLink("index.php", "fa-calendar", "Главная"); ?>
             <li class="header">Пользователи</li>
             <?php
-            createLink("list-obitanie.php", "fa-users", "???");
-            createLink("list-student.php", "fa-users", "??");
+            createLink("list-personal.php", "fa-users", "Пользователи");
             ?>
             <li class="header">Справочники</li>
             <?php
             createLink("list-obitanie.php", "fa-users", "Зоны обитания");
             createLink("list-type.php", "fa-users", "Типы рационов");
-            createLink("list-special.php", "fa-users", "??");
+            createLink("list-racion.php", "fa-users", "Список рационов");
             createLink("list-subject.php", "fa-users", "?? ");
             createLink("list-classroom.php", "fa-users", "??");
             ?>
-            <li class="header">Управление расписанием</li>
+            <li class="header">Животные</li>
             <?php createLink("list-teacher-schedule.php", "fa-users", "?? и ??"); ?>
         </ul>
     </section>

@@ -20,6 +20,8 @@ class Personal extends Table {
             !empty($this->login) &&
             !empty($this->pass) &&
             !empty($this->role_id) &&
+            !empty($this->date_birth) &&
+            !empty($this->phone_number) &&
             !empty($this->gender_id)) {
             return true;
         }

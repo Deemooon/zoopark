@@ -46,4 +46,10 @@ class RaciontypeMap extends BaseMap {
         $res = $this->db->query("SELECT COUNT(*) AS cnt FROM racion_type");
         return $res->fetch(PDO::FETCH_OBJ)->cnt;
     }
+
+    public function arrRacion()
+    {
+        $res = $this->db->query("SELECT racion_type_id AS id, name AS value FROM racion_type");
+        return $res->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

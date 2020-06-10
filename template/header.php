@@ -114,7 +114,7 @@ desired effect
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Профиль</a>
+                                    <a href="list-personal.php" class="btn btn-default btn-flat">Профиль</a>
                                 </div>
                                 <div class="pull-right">
                                     <form method="POST">

@@ -1,38 +1,42 @@
 <?php
-require_once 'autoload.php';
-$personalMap = new PersonalMap();
-$personal = $personalMap->findById($id);
+$pMap = new PersonalMap();
+$p = $pMap->findById($id);
 ?>
 <div class="form-group">
     <label>Фамилия</label>
     <input type="text" class="form-control"
-           name="lastname" required="required" value="<?=$personal->lastname;?>">
+           name="lastname" required="required" value="<?=$p->lastname;?>">
 </div>
 <div class="form-group">
     <label>Имя</label>
     <input type="text" class="form-control"
-           name="firstname" required="required" value="<?=$personal->firstname;?>">
+           name="firstname" required="required" value="<?=$p->firstname;?>">
 </div>
 <div class="form-group">
     <label>Отчество</label>
     <input type="text" class="form-control"
-           name="patronymic" value="<?=$personal->patronymic;?>">
-</div>
-<div class="form-group">
-    <label>Пол</label>
-    <select class="form-control" name="gender_id">
-        <?= Helper::printSelectOptions($personal->gender_id, $personalMap->arrGenders());?>
-    </select>
+           name="patronymic" value="<?=$p->patronymic;?>">
 </div>
 <div class="form-group">
     <label>Дата рождения</label>
     <input type="date" class="form-control"
-           name="date_birth" value="<?=$personal->date_birth;?>">
+           name="date_birth" value="<?=$p->date_birth;?>">
+</div>
+<div class="form-group">
+    <label>Пол</label>
+    <select class="form-control" name="gender_id">
+        <?= Helper::printSelectOptions($p->gender_id, $pMap->arrGenders());?>
+    </select>
+</div>
+<div class="form-group">
+    <label>Номер телефона</label>
+    <input type="text" class="form-control" name="phone_number"
+           required="required" value="<?=$p->phone_number;?>">
 </div>
 <div class="form-group">
     <label>Логин</label>
     <input type="text" class="form-control" name="login"
-           required="required" value="<?=$personal->login;?>">
+           required="required" value="<?=$p->login;?>">
 </div>
 <div class="form-group">
     <label>Пароль</label>
