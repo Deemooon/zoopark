@@ -3,7 +3,7 @@ class PersonalMap extends BaseMap {
 
     public function auth($login, $password){
         $login = $this->db->quote($login);
-        $res = $this->db->query("SELECT personal.user_id, CONCAT(personal.lastname,' ', personal.firstname, ' ', IfNull(personal.patronymic,'')) AS fio, "."personal.pass, role.sys_name, role.name FROM personal "."INNER JOIN role ON personal.role_id=role.role_id "."WHERE personal.login = $login");
+        $res = $this->db->query("SELECT personal.user_id, CONCAT(personal.lastname,' ', personal.firstname, ' ', IfNull(personal.patronymic,'')) AS fio, "."personal.pass, role.sys_name, role.name,personal.married_id FROM personal "."INNER JOIN role ON personal.role_id=role.role_id "."WHERE personal.login = $login");
         $personal = $res->fetch(PDO::FETCH_OBJ);
         if ($personal) {
             if (password_verify($password, $personal->pass))
@@ -16,7 +16,7 @@ class PersonalMap extends BaseMap {
 
     public function findById($id=null){
         if ($id) {
-            $res = $this->db->query("SELECT user_id, lastname, firstname, patronymic, login, pass, gender_id, date_birth, role_id,phone_number". "FROM personal WHERE user_id = $id");
+            $res = $this->db->query("SELECT user_id, lastname, firstname, patronymic, login, pass, gender_id, date_birth, role_id,married_id,married_name,phone_number". "FROM personal WHERE user_id = $id");
             $user = $res->fetchObject("User");
             if ($user) {
                 return $user;
@@ -54,9 +54,11 @@ class PersonalMap extends BaseMap {
         $pass = $this->db->quote($p->pass);
         $date_birth = $this->db->quote($p->date_birth);
         $phone_number = $this->db->quote($p->phone_number);
+        $married_id = $this->db->quote($p->married_id);
+        $married_name =$this->db->quote($p->married_name);
 
-        if ($this->db->exec("INSERT INTO personal(lastname,firstname, patronymic, login, pass, gender_id, date_birth,phone_number,role_id)"
-                . " VALUES($lastname,$firstname,$patronymic,$login,$pass,$p->gender_id,$date_birth,$phone_number, $p->role_id)") == 1) {
+        if ($this->db->exec("INSERT INTO personal(lastname,firstname, patronymic, login, pass, gender_id, date_birth,phone_number,role_id,married_id,married_name)"
+                . " VALUES($lastname,$firstname,$patronymic,$login,$pass,$p->gender_id,$date_birth,$phone_number, $p->role_id,$married_id,$married_name)") == 1) {
             $p->user_id = $this->db->lastInsertId();
             return true;
         }
@@ -70,7 +72,9 @@ class PersonalMap extends BaseMap {
         $pass = $this->db->quote($p->pass);
         $date_birth = $this->db->quote($p->date_birth);
         $phone_number = $this->db->quote($p->phone_number);
-        if ( $this->db->exec("UPDATE personal SET lastname = $lastname, firstname = $firstname, patronymic = $patronymic,". " login = $login, pass = $pass, gender_id = $p->gender_id, date_birth = $date_birth, phone_number=$phone_number,role_id = $p->role_id ". "WHERE user_id = ".$p->user_id) == 1) {
+        $married_id = $this->db->quote($p->married_id);
+        $married_name =$this->db->quote($p->married_name);
+        if ( $this->db->exec("UPDATE personal SET lastname = $lastname, firstname = $firstname, patronymic = $patronymic,". " login = $login,married_id =$married_id,married_name = $married_name,pass = $pass, gender_id = $p->gender_id, date_birth = $date_birth, phone_number=$phone_number,role_id = $p->role_id ". "WHERE user_id = ".$p->user_id) == 1) {
             return true;
         }
         return false;
@@ -85,7 +89,8 @@ class PersonalMap extends BaseMap {
     }
 
     public function findAll($ofset=0, $limit=30){
-        $res = $this->db->query("SELECT personal.user_id, CONCAT(personal.lastname,' ', personal.firstname, ' ', personal.patronymic) AS fio, personal.date_birth, ". " gender.name AS gender, personal.phone_number, role.name AS role FROM personal ". "INNER JOIN gender ON personal.gender_id=gender.gender_id" . " INNER JOIN role ON personal.role_id=role.role_id LIMIT $ofset, $limit");
+        $res = $this->db->query("SELECT personal.user_id, CONCAT(personal.lastname,' ', personal.firstname, ' ', personal.patronymic) AS fio,personal.married_name AS married, personal.login, personal.date_birth, ". " gender.name AS gender, personal.phone_number, role.name AS role FROM personal ". "INNER JOIN gender ON personal.gender_id=gender.gender_id" . " INNER JOIN role ON personal.role_id=role.role_id 
+        LIMIT $ofset, $limit");
         return $res->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -96,9 +101,21 @@ class PersonalMap extends BaseMap {
 
     public function findProfileById($id=null){
         if ($id) {
-            $res = $this->db->query("Select personal.user_id, CONCAT(personal.lastname,' ', personal.firstname, ' ', personal.patronymic) AS fio, personal.login,personal.pass, personal.date_birth, ". " gender.name AS gender, personal.phone_number, role.name AS role FROM personal ". "INNER JOIN gender ON personal.gender_id=gender.gender_id" . " INNER JOIN role ON personal.role_id=role.role_id WHERE personal.user_id =$id");
+            $res = $this->db->query("Select personal.user_id, CONCAT(personal.lastname,' ', personal.firstname, ' ', personal.patronymic) AS fio,personal.married_id,personal.login,personal.pass, personal.date_birth, ". " gender.name AS gender, personal.phone_number, role.name AS role FROM personal ". "INNER JOIN gender ON personal.gender_id=gender.gender_id" . " INNER JOIN role ON personal.role_id=role.role_id WHERE personal.user_id =$id");
             return $res->fetch(PDO::FETCH_OBJ);
         }
         return false;
+    }
+
+    public function arrMarried()
+    {
+        $res = $this->db->query("SELECT married_id AS id, lastname AS value FROM personal");
+        return $res->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function findAll1($ofset=0, $limit=30){
+        $res = $this->db->query("SELECT personal.user_id, CONCAT(personal.lastname,' ', personal.firstname, ' ', personal.patronymic) AS fio,personal.married_name AS married ,personal.date_birth, ". " gender.name AS gender, personal.phone_number, role.name AS role FROM personal ". "INNER JOIN gender ON personal.gender_id=gender.gender_id" . " INNER JOIN role ON personal.role_id=role.role_id 
+        WHERE personal.married_id IS NOT NULL
+        LIMIT $ofset, $limit");
+        return $res->fetchAll(PDO::FETCH_OBJ);
     }
 }

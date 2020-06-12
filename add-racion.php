@@ -15,7 +15,7 @@ require_once 'template/header.php';
 
             <li><a href="/index.php"><i class="fa fa-dashboard"></i> Главная</a></li>
 
-            <li><a href="list-racion.php">Группы</a></li>
+            <li><a href="list-racion.php">Рационы</a></li>
             <li class="active"><?=$header;?></li>
         </ol>
     </section>
@@ -38,7 +38,7 @@ require_once 'template/header.php';
                 </select>
             </div>
             <div class="form-group">
-                <label>Название</label>
+                <label>Название рациона</label>
                 <input type="text" class="form-control"name="name" required="required" value="<?=$racion->name;?>">
             </div>
 

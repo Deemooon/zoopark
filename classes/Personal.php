@@ -12,6 +12,7 @@ class Personal extends Table {
     public $pass='';
     public $role_id=0;
     public $married_id=0;
+    public $married_name='';
 
     public function validate()
     {
@@ -22,6 +23,8 @@ class Personal extends Table {
             !empty($this->role_id) &&
             !empty($this->date_birth) &&
             !empty($this->phone_number) &&
+            !empty($this->married_id) &&
+            !empty($this->married_name) &&
             !empty($this->gender_id)) {
             return true;
         }

@@ -33,11 +33,13 @@ $p = $pMap->findById($id);
     <input type="text" class="form-control" name="phone_number"
            required="required" value="<?=$p->phone_number;?>">
 </div>
+
 <div class="form-group">
     <label>Логин</label>
     <input type="text" class="form-control" name="login"
            required="required" value="<?=$p->login;?>">
 </div>
+
 <div class="form-group">
     <label>Пароль</label>
     <input type="password" class="form-control"

@@ -23,6 +23,11 @@ require_once 'template/header.php';?>
                     </ol>
                 </section>
                 <div class="box-body">
+
+                    <a class="btn btn-success" href="add-racion.php">Добавить </a>
+
+                </div>
+                <div class="box-body">
                     <?php
                     if ($racionanimals) {
                         ?>
@@ -47,7 +52,7 @@ require_once 'template/header.php';?>
 
                                     . '<a href="add-racion.php?id='.$racionanimal->racion_animals_id.'"><i class="fa fa-pencil"></i></a></td>';
 
-                                echo '<td>'.$racionanimal->animals.'</td>';
+                                echo '<td>'.$racionanimal->firstname.'</td>';
                                 echo '<td>'.$racionanimal->racion_type.'</td>';
                                 echo '<td>'.$racionanimal->list_product.'</td>';
                                 echo '</tr>';
@@ -56,7 +61,7 @@ require_once 'template/header.php';?>
                             </tbody>
                         </table>
                     <?php } else {
-                        echo 'Ни одной группы не найдено';
+                        echo 'Ни одного рациона не найдено';
                     } ?>
                 </div>
                 <div class="box-body">

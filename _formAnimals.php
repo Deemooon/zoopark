@@ -42,4 +42,14 @@ $animals = $animalsMap->findById($id);
             <?= Helper::printSelectOptions($animals->id_smotr, $animalsMap->arrSmotr());?>
         </select>
     </div>
+    <div class="form-group">
+        <label>Дата старта</label>
+        <input type="date" class="form-control"
+               name="wintering_start" value="<?=$animals->wintering_start;?>">
+    </div>
+    <div class="form-group">
+        <label>Дата конца</label>
+        <input type="date" class="form-control"
+               name="wintering_end" value="<?=$animals->wintering_end;?>">
+    </div>
     <input type="hidden" name="animals_id" value="<?=$id;?>"/><?php

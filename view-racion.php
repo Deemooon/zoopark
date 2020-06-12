@@ -31,25 +31,25 @@ if (isset($_GET['id'])) {
                         <tr>
                             <th>Название</th>
 
-                            <td><?=$racionanimals->name;?></td>
+                            <td><?=$racionanimal->name;?></td>
 
                         </tr>
                         <tr>
 
                             <th>Имя животного</th>
 
-                            <td><?=$racionanimals->animals;?></td>
+                            <td><?=$racionanimal->firstname;?></td>
 
                         </tr>
                         <tr>
 
                             <th>Лист продуктов</th>
-                            <td><?=$racionanimals->list_product;?></td>
+                            <td><?=$racionanimal->list_product;?></td>
                         </tr>
-                        < <tr>
+                        <tr>
 
                             <th>Тип рациона</th>
-                            <td><?=$racionanimals->racion_type;?></td>
+                            <td><?=$racionanimal->racion_type;?></td>
                         </tr>
                     </table>
                 </div>

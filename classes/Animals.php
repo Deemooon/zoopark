@@ -2,6 +2,7 @@
 class Animals extends Table {
 
 
+
     public function validate()
     {
         if (!empty($this->firstname) &&
@@ -10,6 +11,8 @@ class Animals extends Table {
             !empty($this->racion_animals_id) &&
             !empty($this->id_smotr) &&
             !empty($this->id_vet) &&
+            !empty($this->wintering_start) &&
+            !empty($this->wintering_end) &&
             !empty($this->habiat_id)) {
             return true;
         }

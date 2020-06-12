@@ -29,6 +29,16 @@ require_once 'template/header.php';
                 </select>
             </div>
             <div class="form-group">
+                <label>Супруг</label>
+                <select class="form-control" name="married_id">
+                    <?= Helper::printSelectOptions($p->married_id, $pMap->arrMarried());?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Статус</label>
+                <input type="text" class="form-control"name="married_name" required="required" value="<?=$p->married_name;?>">
+            </div>
+            <div class="form-group">
                 <button type="submit" name="savePersonal"
                         class="btn btn-primary">Сохранить</button>
             </div>

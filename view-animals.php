@@ -21,11 +21,6 @@ if (isset($_GET['id'])) {
                 </section>
                 <div class="box-body">
 
-                    <a class="btn btn-success" href="add-animals.php?id=<?=$id;?>">Изменить</a>
-
-                </div>
-                <div class="box-body">
-
                     <table class="table table-bordered table-hover">
 
                         <tr>

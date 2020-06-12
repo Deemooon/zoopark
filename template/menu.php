@@ -25,11 +25,14 @@
             createLink("list-obitanie.php", "fa-users", "Зоны обитания");
             createLink("list-type.php", "fa-users", "Типы рационов");
             createLink("list-racion.php", "fa-users", "Список рационов");
-            createLink("list-subject.php", "fa-users", "?? ");
-            createLink("list-classroom.php", "fa-users", "??");
             ?>
             <li class="header">Животные</li>
-            <?php createLink("list-animals.php", "fa-users", "Список животных"); ?>
+            <?php
+            createLink("list-animals.php", "fa-users", "Список всех животных");
+            createLink("list-mammals.php", "fa-users", "Список млекопитающих");
+            createLink("list-bird.php", "fa-users", "Список птиц");
+            createLink("list-reptail.php", "fa-users", "Список рептилий");
+            ?>
         </ul>
     </section>
 </aside>

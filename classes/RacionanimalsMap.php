@@ -40,8 +40,10 @@ class RacionanimalsMap extends BaseMap {
         return false;
     }
     public function findAll($ofset=0,$limit=30){
-        $res = $this->db->query("SELECT racion_animals.racion_animals_id,racion_animals.name, animals.firstname AS animals, racion_type.name as racion_type,racion_animals.list_product"
-            . " FROM racion_animals INNER JOIN animals ON racion_animals.animals_id=animals.animals_id INNER JOIN racion_type ON racion_animals.racion_type_id=racion_type.racion_type_id LIMIT $ofset,$limit");
+        $res = $this->db->query("SELECT racion_animals.racion_animals_id,racion_animals.name, animals.firstname AS firstname, racion_type.name as racion_type,racion_animals.list_product AS list_product"
+            . " FROM racion_animals 
+            INNER JOIN animals ON racion_animals.animals_id=animals.animals_id 
+            INNER JOIN racion_type ON racion_animals.racion_type_id=racion_type.racion_type_id LIMIT $ofset,$limit");
         return $res->fetchAll(PDO::FETCH_OBJ);
     }
     public function count(){
@@ -50,11 +52,16 @@ class RacionanimalsMap extends BaseMap {
     }
     public function findViewById($id=null){
         if ($id) {
-            $res = $this->db->query("SELECT racion_animals.racion_animals_id,racion_animals.name, animals.firstname AS animals, racion_type.name AS racion_type,racion_animals.list_product"
-                . " FROM racion_animals INNER JOIN animals ON racion_animals.animals_id=animals.animals_id INNER JOIN racion_type ON racion_animals.racion_type_id=racion_type.racion_type_id WHERE racion_animals_id = $id");
+            $res = $this->db->query("SELECT racion_animals.racion_animals_id,racion_animals.name AS name, animals.firstname AS firstname, racion_type.name as racion_type,racion_animals.list_product AS list_product"
+                . " FROM racion_animals 
+            INNER JOIN animals ON racion_animals.animals_id=animals.animals_id 
+            INNER JOIN racion_type ON racion_animals.racion_type_id=racion_type.racion_type_id
+       
+                 WHERE racion_animals.racion_animals_id = $id");
             return $res->fetch(PDO::FETCH_OBJ);
         }
         return false;
     }
+
 
 }

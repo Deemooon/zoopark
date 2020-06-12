@@ -42,7 +42,8 @@ require_once 'template/header.php';?>
                             <?php
                             foreach ($habiats as $habiat) {
                                 echo '<tr>';
-                                echo '<td><a href="view-obitanie.php?id='.$habiat->habiat_id.'">'.$habiat->name.'</a> '. '<a href="add-obitanie.php?id='.$habiat->habiat_id.'"><i class="fa fa-pencil"></i></a></td>';
+                                echo '<td><a href="view-obitanie.php?id='.$habiat->habiat_id.'">'.$habiat->name.'</a> '.
+                                    '<a href="add-obitanie.php?id='.$habiat->habiat_id.'"><i class="fa fa-pencil"></i></a></td>';
                                 echo '<td>'.$habiat->info.'</td>';
                                 echo '</tr>';
                             }
@@ -50,7 +51,7 @@ require_once 'template/header.php';?>
                             </tbody>
                         </table>
                     <?php } else {
-                        echo 'Ни одной аудитории не найдено';
+                        echo 'Ни одной зоны обитания не найдено';
                     } ?>
                 </div>
                 <div class="box-body">

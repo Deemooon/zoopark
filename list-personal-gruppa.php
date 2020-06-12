@@ -8,7 +8,7 @@ if (isset($_GET['page'])) {
 }
 $pMap = new PersonalMap();
 $count = $pMap->count();
-$ps = $pMap->findAll($page*$size-$size, $size);
+$ps = $pMap->findAll1($page*$size-$size, $size);
 $header = 'Список пользователей';
 require_once 'template/header.php';
 ?>
@@ -26,7 +26,7 @@ require_once 'template/header.php';
                 <div class="box-body">
 
                     <a class="btn btn-success" href="add-personal.php">Добавить пользователя</a>
-                    <a  href="list-personal-gruppa.php">Показать семейные пары</a>
+
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

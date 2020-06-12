@@ -8,15 +8,15 @@ if (isset($_GET['page'])) {
 }
 $animalsMap = new AnimalsMap();
 $count = $animalsMap->count();
-$animals = $animalsMap->findAll($page*$size-$size, $size);
-$header = 'Список всех животных зоопарка';
+$animals = $animalsMap->findAll1($page*$size-$size, $size);
+$header = 'Список животных';
 require_once 'template/header.php';
 ?>
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
                 <section class="content-header">
-                    <h1>Список животных</h1>
+                    <h1>Список животного</h1>
                     <ol class="breadcrumb">
                         <li><a href="/index.php"><i class="fafa-dashboard"></i> Главная</a></li>
                         <li class="active">Список
@@ -25,7 +25,7 @@ require_once 'template/header.php';
                 </section>
                 <div class="box-body">
 
-                    <a href="list-animals-actual.php">Просмотреть актуальных животных в зоопарке </a>
+                    <a href="list-animals.php">Вернуться назад </a>
 
                 </div>
                 <div class="box-body">
@@ -44,8 +44,8 @@ require_once 'template/header.php';
                                 <th>Рацион животного</th>
                                 <th>Имя Ветеринара</th>
                                 <th>Имя Смотрящего</th>
-                                <th>Дата начала зимовки</th>
-                                <th>Дата конца зимовки</th>
+                                <th>wintering_start</th>
+                                <th>wintering_end</th>
                             </tr>
                             </thead>
                             <tbody>

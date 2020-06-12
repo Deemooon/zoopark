@@ -9,7 +9,7 @@ if (isset($_GET['page'])) {
 $typeMap = new RaciontypeMap();
 $count = $typeMap->count();
 $types = $typeMap->findAll($page*$size-$size, $size);
-$header = 'Список рационов';
+$header = 'Список типов рационов';
 require_once 'template/header.php';?>
     <div class="row">
 
@@ -41,14 +41,14 @@ require_once 'template/header.php';?>
                             <?php
                             foreach ($types as $type) {
                                 echo '<tr>';
-                                echo '<td><a href="view-type.php?id='.$type->racion_type_id.'">'.$type->name.'</a> '. '<a href="add-type.php?id='.$type->racion_type_id.'"><i class="fa fa-pencil"></i></a></td>';
+                                echo '<td>'.$type->name.'</td>';
                                 echo '</tr>';
                             }
                             ?>
                             </tbody>
                         </table>
                     <?php } else {
-                        echo 'Ни одной аудитории не найдено';
+                        echo 'Ни одного типа рационов не найдено';
                     } ?>
                 </div>
                 <div class="box-body">

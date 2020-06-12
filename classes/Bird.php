@@ -6,6 +6,11 @@ class Bird extends Table {
 
     public function validate()
     {
-        return false;
+        if (!empty($this->name) &&
+            !empty($this->origin) &&
+            !empty($this->wintering_end) &&
+            !empty($this->wintering_start)) {
+            return true;
+        }
     }
 }

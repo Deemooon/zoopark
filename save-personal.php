@@ -12,6 +12,9 @@ if (isset($_POST['user_id'])) {
     $p->pass = password_hash(Helper::clearString($_POST['password']),PASSWORD_BCRYPT);
     $p->gender_id = Helper::clearInt($_POST['gender_id']);
     $p->role_id = Helper::clearInt($_POST['role_id']);
+    $p->married_id = Helper::clearInt($_POST['married_id']);
+    $p->married_name = Helper::clearString($_POST['married_name']);
+    print_r($p);
     if ((new PersonalMap())->save($p)) {
         header('Location: profile-personal.php?id='.$p->user_id);
     } else {
