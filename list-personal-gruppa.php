@@ -51,9 +51,7 @@ require_once 'template/header.php';
                             <?php
                             foreach ($ps as $p) {
                                 echo '<tr>';
-                                echo '<td><a href="profile-personal.php?id='.$p->user_id.'">'.$p->fio.'</a> '
-
-                                    . '<a href="add-personal.php?id='.$p->user_id.'"><i class="fa fa-pencil"></i></a></td>';
+                                echo '<td><a href="profile-personal.php?id='.$p->user_id.'">'.$p->fio.'</td>';
 
                                 echo '<td>'.$p->gender.'</td>';
 

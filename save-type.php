@@ -5,7 +5,7 @@ if (isset($_POST['racion_type_id'])) {
     $type->racion_type_id = Helper::clearInt($_POST['racion_type_id']);
     $type->name = Helper::clearString($_POST['name']);
     if ((new RaciontypeMap())->save($type)) {
-        header('Location: view-type.php?id='.$type->racion_type_id);
+        header('Location: list-type.php?id='.$type->racion_type_id);
     } else {
         if ($type->racion_type_id) {
 
